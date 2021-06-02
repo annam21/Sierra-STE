@@ -7,21 +7,21 @@ library(tidyverse)
 # library(assertr)
 
 # Read in data
-dep <- read_csv("deploywithstudyarea.csv") %>% 
+dep <- read_csv("data/deploywithstudyarea.csv") %>% 
   mutate(cam = paste(Camera, Rotation, sep = "_"),
          start = as.POSIXct(Start, format = "%m/%d/%y", tz = "GMT"),
          end = as.POSIXct(End, format = "%m/%d/%y", tz = "GMT")) %>%
   rename(area = Area) %>%
   select(cam, area, start, end, study_area)
 
-datung <- read_csv("MOOSE AND DEER DATA FINAL.csv") %>% 
+datung <- read_csv("data/MOOSE AND DEER DATA FINAL.csv") %>% 
   mutate(cam = paste(cam_N, rotation_N, sep = "_"),
          dt  = paste(as.character(date), as.character(time)),
          datetime = as.POSIXct(dt, format = "%m/%d/%y %H:%M:%S", tz = "GMT"),
          count = 1) %>%
   select(cam, datetime, species, count)
 
-datpred <- read_csv("threepredators_fixedseconds.csv")  %>%
+datpred <- read_csv("data/threepredators_fixedseconds.csv")  %>%
   mutate(cam = paste(CAM_ID, ROT_N, sep = "_"),
          dt = paste(DATE, `TIME (HH:MM:SS)`),
          datetime = as.POSIXct(dt, format = "%m/%d/%Y %H:%M:%S", tz = "GMT"),
